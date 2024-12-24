@@ -1,16 +1,16 @@
-	import os
+import os
 from flask import Flask, request, jsonify
 import openai
- 
+
 # Create Flask application
 app = Flask(__name__)
- 
+
 # Set OpenAI API key from environment variable
 openai.api_key = os.getenv("OPENAI_API_KEY")
- 
+
 if not openai.api_key:
     raise ValueError("OPENAI_API_KEY environment variable is not set.")
- 
+
 @app.route('/chat', methods=['POST'])
 def chat():
     """
@@ -22,7 +22,7 @@ def chat():
         user_message = data.get('message', '') if data else ''
         if not user_message:
             return jsonify({'error': 'No message provided.'}), 400
- 
+
         # Send request to OpenAI API
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
@@ -40,14 +40,14 @@ def chat():
     except Exception as e:
         # General error handling
         return jsonify({'error': f'Server error: {str(e)}'}), 500
- 
+
 @app.route('/', methods=['GET'])
 def home():
     """
     Root endpoint for checking server status
     """
     return "Welcome to the chatbot API! Add /test-key to check the OPENAI_API_KEY."
- 
+
 @app.route('/test-key', methods=['GET'])
 def test_key():
     """
@@ -56,6 +56,6 @@ def test_key():
     if not openai.api_key:
         return jsonify({'error': 'OPENAI_API_KEY is not set'}), 500
     return jsonify({'message': 'OPENAI_API_KEY is set correctly'}), 200
- 
+
 if __name__ == '__main__':
     app.run(debug=True)
