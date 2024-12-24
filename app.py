@@ -25,8 +25,19 @@ def chat():
     Handles the chatbot interaction.
     """
     try:
-        # This is the simplified code for testing:
-        return jsonify({'message': 'OpenAI library accessible'}), 200 
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "Ты помощник для клиента."},
+                {"role": "user", "content": "Some Text"}  # Or get message from request data
+            ]
+        )
+        
+        print(response)  # Print the entire response object
+        print(response.status_code)
+        
+        reply = response['choices'][0]['message']['content']
+        return jsonify({'reply': reply})
     except Exception as e:
         return jsonify({'error': f'An error occurred: {str(e)}'}), 500
 
