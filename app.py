@@ -19,16 +19,28 @@ def index():
     """
     return render_template('index.html')
 
-@app.route('/chat', methods=['POST'])
+@app.route('/chat', methods=['POST'])  # This is the updated /chat route
 def chat():
     """
     Handles the chatbot interaction.
     """
     try:
-        # This is the simplified code for testing:
-        return jsonify({'message': 'OpenAI library accessible'}), 200 
+        data = request.get_json()
+        user_message = data.get('message', '') if data else ''
+        if not user_message:
+            return jsonify({'error': 'No message provided.'}), 400
+        
+        response = openai.Completion.create(
+            engine="text-davinci-003", 
+            prompt=user_message,
+            max_tokens=150  
+        )
+        
+        reply = response.choices[0].text.strip()
+        return jsonify({'reply': reply})
     except Exception as e:
         return jsonify({'error': f'An error occurred: {str(e)}'}), 500
+
 
 @app.route('/test-key', methods=['GET'])
 def test_key():
