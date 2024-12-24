@@ -32,13 +32,13 @@ def chat():
         )
 
         # Проверка структуры ответа
-        if 'choices' in response and len(response.choices) > 0:
-            reply = response.choices[0].message.content
+        if 'choices' in response and len(response['choices']) > 0:
+            reply = response['choices'][0]['message']['content']
             return jsonify({'reply': reply})
         else:
             return jsonify({'error': 'Unexpected response structure from OpenAI API.'}), 500
 
-    except openai.OpenAIError as e:
+    except openai.error.OpenAIError as e:
         # Обработка ошибок OpenAI
         return jsonify({'error': f'OpenAI API error: {str(e)}'}), 500
     except Exception as e:
