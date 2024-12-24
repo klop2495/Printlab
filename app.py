@@ -6,7 +6,7 @@ import openai
 app = Flask(__name__)
 
 # Установка API-ключа OpenAI
-openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = os.environ.get("OPENAI_API_KEY")  # Get from Heroku config vars
 if not openai.api_key:
     raise ValueError("OPENAI_API_KEY environment variable is not set. Please set it in your environment.")
 
