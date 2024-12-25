@@ -4,9 +4,38 @@
     <title>Chatbot Test</title>
 </head>
 <body>
-    <form method="POST" action="/chat">
+    <form>
         <input type="text" name="message" placeholder="Enter your message">
         <button type="submit">Send</button>
     </form>
+    <div id="response"></div>
+
+    <script>
+        const form = document.querySelector('form');
+        const responseDiv = document.getElementById('response');
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const message = document.querySelector('input[name="message"]').value;
+            const data = { message };
+
+            fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                responseDiv.innerHTML = data.reply; // Update to data.reply
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
 </body>
 </html>
