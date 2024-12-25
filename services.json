@@ -1,0 +1,39 @@
+{
+  "services": [
+    {
+      "name": "Classical Optical Printing",
+      "price": "Varies by size (from 10x15 cm to 40x50 cm)",
+      "description": "Traditional prints from film negatives, capturing analog depth and texture."
+    },
+    {
+      "name": "Platinum-Palladium Printing",
+      "price": "Contact for pricing",
+      "description": "Rich tonal range and archival quality for timeless pieces."
+    },
+    {
+      "name": "Photogravure",
+      "price": "Contact for pricing",
+      "description": "Sophisticated intaglio printing with depth and texture."
+    },
+    {
+      "name": "Pigment Ink Printing",
+      "price": "Customizable sizes and finishes, contact for pricing",
+      "description": "High-quality pigment printing on a wide selection of papers."
+    },
+    {
+      "name": "Digital Negatives",
+      "price": "Contact for pricing",
+      "description": "Calibrated digital negatives for alternative printing processes."
+    },
+    {
+      "name": "Photopolymer Plates",
+      "price": "Contact for pricing",
+      "description": "Preparation and printing on photopolymer plates."
+    },
+    {
+      "name": "Custom Gifts",
+      "price": "Contact for pricing",
+      "description": "Unique pieces of art using alternative techniques."
+    }
+  ]
+}
