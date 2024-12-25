@@ -19,10 +19,10 @@ def index():
     """
     return render_template('index.html')
 
-@app.route('/chat', methods=['POST'])  # This is the updated /chat route
+@app.route('/chat', methods=['POST'])
 def chat():
     """
-    Handles the chatbot interaction.
+    Handles the chatbot interaction using gpt-3.5-turbo.
     """
     try:
         data = request.get_json()
@@ -30,17 +30,18 @@ def chat():
         if not user_message:
             return jsonify({'error': 'No message provided.'}), 400
         
-        response = openai.Completion.create(
-            engine="text-davinci-003", 
-            prompt=user_message,
-            max_tokens=150  
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo", 
+            messages=[
+                {"role": "system", "content": "Ты помощник для клиента."},
+                {"role": "user", "content": user_message}
+            ]  
         )
         
-        reply = response.choices[0].text.strip()
+        reply = response.choices[0].message.content  # Accessing the response
         return jsonify({'reply': reply})
     except Exception as e:
         return jsonify({'error': f'An error occurred: {str(e)}'}), 500
-
 
 @app.route('/test-key', methods=['GET'])
 def test_key():
